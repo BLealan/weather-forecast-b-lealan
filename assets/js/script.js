@@ -2,7 +2,7 @@ var searchForCity = document.querySelector("#city-search");
 var searchButton = document.querySelector("#searchBtn");
 var latitude = 0;
 var longitude = 0;
-
+var savedCity = searchForCity.value;
 var createWeatherCard = document.getElementById("weather-cards");
 
 function getApi(latitude, longitude){
@@ -14,7 +14,10 @@ function getApi(latitude, longitude){
         return response.json();
     })
     .then(function (data) {
-        console.log(data);
+        var saveWeather = data;
+        var savedCity = searchForCity.value;
+        localStorage.setItem(savedCity,JSON.stringify(saveWeather));
+        console.log(saveWeather);
     })
 }
 
@@ -56,9 +59,6 @@ function generateCards(){
 //Click event to save value of search bar to local storage an create history button
 searchButton.addEventListener("click", function(event){
 
-    var savedCity = searchForCity.value;
-    localStorage.setItem("city", savedCity);
-
     var historyList = $("#search-history");
     var historyButtonEl = $(`<button class ="${savedCity}" class="btn saveBtn" aria-label="save">${savedCity}</button>`);
 
@@ -68,3 +68,6 @@ searchButton.addEventListener("click", function(event){
 
     generateCards();
 });
+
+var testResult = JSON.parse(localStorage.getItem("New York"));
+console.log(testResult);
