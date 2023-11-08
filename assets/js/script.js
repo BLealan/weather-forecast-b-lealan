@@ -4,19 +4,20 @@ var searchButton = document.querySelector("#searchBtn");
 var createWeatherCard = document.getElementById("weather-cards");
 
 //Function to convert city in local storage to co-ordinates
-
 function cityToCoordinates(){
-
     var city = localStorage.getItem("city");
 
-    var fetchCityCoord = `http://api.openweathermap.org/geo/1.0/direct?q={${city}}&appid={5a2bf608390639e1f4cb6c9ed307b7e6}`;
-
-    fetch(fetchCityCoord)
-    .then(function (response){
-        return response.json();
-    })
-    .then(function (data){
-        console.log(data);
+    $.ajax({
+        method: 'GET',
+        url: `https://api.api-ninjas.com/v1/geocoding?city=${city}`,
+        headers: { 'X-Api-Key': 'SSqciNfqi1I7PloStRDhwA==FxTHxv4F9h2qlThu'},
+        contentType: 'application/json',
+        success: function(result) {
+            console.log(result);
+        },
+        error: function ajaxError(jqXHR) {
+            console.error('Error: ', jqXHR.responseText);
+        }
     })
 };
 
@@ -31,6 +32,8 @@ searchButton.addEventListener("click", function(event){
     cityToCoordinates();
 
 });
+
+
 
 // function getApi(){
 //     var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}";
