@@ -36,6 +36,20 @@ function cityToCoordinates(){
 //     })
 // }
 
+//Function to generate weather cards
+function generateCards(){
+    for(i = 0; i < 5; i++){
+        var date = $(`<p class="date[i]">Date:</p>`);
+        var weatherCardEl = $("#weather-cards");
+        var icon = $(`<img class="icon[i]"/>`);
+        var temperature = $(`<p class="temperature[i]">Temperature:</p>`);
+        var windSpeed = $(`<p class="wind-speed[i]">Wind Speed:</p>`);
+        var humidity = $(`<p class="humidity[i]">Humidity:</p>`);
+
+        weatherCardEl.append(date, icon, temperature, windSpeed, humidity);
+    }
+};
+
 //Click event to save value of search bar to local storage an create history button
 searchButton.addEventListener("click", function(event){
 
@@ -49,5 +63,7 @@ searchButton.addEventListener("click", function(event){
 
     cityToCoordinates();
 
-    getApi();
+    // getApi();
+
+    generateCards();
 });
