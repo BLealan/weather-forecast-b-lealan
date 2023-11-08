@@ -15,31 +15,17 @@ function cityToCoordinates(){
         headers: { 'X-Api-Key': 'SSqciNfqi1I7PloStRDhwA==FxTHxv4F9h2qlThu'},
         contentType: 'application/json',
         success: function(result) {
-            console.log(result)
             latitude = result[0].latitude;
             longitude = result[0].longitude;
-            console.log(latitude, longitude);
         }, error: function ajaxError(jqXHR) {
             console.error('Error: ', jqXHR.responseText);
         }
     })
 };
 
-//Click event to save value of search bar to local storage
-searchButton.addEventListener("click", function(event){
-
-    var savedCity = searchForCity.value;
-
-    localStorage.setItem("city", savedCity);
-
-    cityToCoordinates();
-
-});
-
-
-
 // function getApi(){
-//     var requestUrl = "https://api.openweathermap.org/data/2.5/forecast?lat={lat}&lon={lon}&appid={API key}";
+//     var APIKey = "74c4e70de0f1a242ff2d367b5af4fbc1";
+//     var requestUrl = `https://api.openweathermap.org/data/2.5/weather?lat={${latitude}}&lon={${longitude}}&appid={${APIKey}}`;
 
 //     fetch(requestUrl)
 //     .then(function (response){
@@ -50,4 +36,18 @@ searchButton.addEventListener("click", function(event){
 //     })
 // }
 
-// getApi();
+//Click event to save value of search bar to local storage an create history button
+searchButton.addEventListener("click", function(event){
+
+    var savedCity = searchForCity.value;
+    localStorage.setItem("city", savedCity);
+
+    var historyList = $("#search-history");
+    var historyButtonEl = $(`<button class ="${savedCity}" class="btn saveBtn" aria-label="save">${savedCity}</button>`);
+
+    historyList.append(historyButtonEl);
+
+    cityToCoordinates();
+
+    getApi();
+});
