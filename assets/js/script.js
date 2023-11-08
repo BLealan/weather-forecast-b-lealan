@@ -1,5 +1,7 @@
 var searchForCity = document.querySelector("#city-search");
 var searchButton = document.querySelector("#searchBtn");
+var latitude = 0;
+var longitude = 0;
 
 var createWeatherCard = document.getElementById("weather-cards");
 
@@ -13,9 +15,11 @@ function cityToCoordinates(){
         headers: { 'X-Api-Key': 'SSqciNfqi1I7PloStRDhwA==FxTHxv4F9h2qlThu'},
         contentType: 'application/json',
         success: function(result) {
-            console.log(result);
-        },
-        error: function ajaxError(jqXHR) {
+            console.log(result)
+            latitude = result[0].latitude;
+            longitude = result[0].longitude;
+            console.log(latitude, longitude);
+        }, error: function ajaxError(jqXHR) {
             console.error('Error: ', jqXHR.responseText);
         }
     })
@@ -23,7 +27,6 @@ function cityToCoordinates(){
 
 //Click event to save value of search bar to local storage
 searchButton.addEventListener("click", function(event){
-    event.preventDefault();
 
     var savedCity = searchForCity.value;
 
