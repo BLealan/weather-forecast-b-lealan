@@ -5,6 +5,19 @@ var longitude = 0;
 
 var createWeatherCard = document.getElementById("weather-cards");
 
+function getApi(latitude, longitude){
+    var APIKey = "5a2bf608390639e1f4cb6c9ed307b7e6";
+    var requestUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${APIKey}`;
+
+    fetch(requestUrl)
+    .then(function (response){
+        return response.json();
+    })
+    .then(function (data) {
+        console.log(data);
+    })
+}
+
 //Function to convert city in local storage to co-ordinates
 function cityToCoordinates(){
     var city = localStorage.getItem("city");
@@ -15,30 +28,16 @@ function cityToCoordinates(){
         headers: { 'X-Api-Key': 'SSqciNfqi1I7PloStRDhwA==FxTHxv4F9h2qlThu'},
         contentType: 'application/json',
         success: function(result) {
-            latitude = result[0].latitude;
-            longitude = result[0].longitude;
+            getApi(result[0].latitude, result[0].longitude)
         }, error: function ajaxError(jqXHR) {
             console.error('Error: ', jqXHR.responseText);
         }
     })
 };
 
-// function getApi(){
-//     var APIKey = "74c4e70de0f1a242ff2d367b5af4fbc1";
-//     var requestUrl = `https://api.openweathermap.org/data/2.5/weather?lat={${latitude}}&lon={${longitude}}&appid={${APIKey}}`;
-
-//     fetch(requestUrl)
-//     .then(function (response){
-//         return response.json();
-//     })
-//     .then(function (data) {
-//         console.log(data);
-//     })
-// }
-
 //Function to generate weather cards
 function generateCards(){
-    for(i = 0; i < 5; i++){
+    for(var i = 0; i < 5; i++){
         var today = dayjs();
         var cardDate = today.add(i, 'day').format("DD/MM/YYYY");
         var date = $(`<p class="date[i]">Date:${cardDate}</p>`);
@@ -66,8 +65,6 @@ searchButton.addEventListener("click", function(event){
     historyList.append(historyButtonEl);
 
     cityToCoordinates();
-
-    // getApi();
 
     generateCards();
 });
