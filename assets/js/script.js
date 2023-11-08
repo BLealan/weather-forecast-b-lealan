@@ -39,14 +39,18 @@ function cityToCoordinates(){
 //Function to generate weather cards
 function generateCards(){
     for(i = 0; i < 5; i++){
-        var date = $(`<p class="date[i]">Date:</p>`);
+        var today = dayjs();
+        var cardDate = today.add(i, 'day').format("DD/MM/YYYY");
+        var date = $(`<p class="date[i]">Date:${cardDate}</p>`);
         var weatherCardEl = $("#weather-cards");
+        var singleCardEl = $(`<div class="single-card[i] card-style"></div>`)
         var icon = $(`<img class="icon[i]"/>`);
         var temperature = $(`<p class="temperature[i]">Temperature:</p>`);
         var windSpeed = $(`<p class="wind-speed[i]">Wind Speed:</p>`);
         var humidity = $(`<p class="humidity[i]">Humidity:</p>`);
 
-        weatherCardEl.append(date, icon, temperature, windSpeed, humidity);
+        weatherCardEl.append(singleCardEl);
+        singleCardEl.append(date, icon, temperature, windSpeed, humidity);
     }
 };
 
