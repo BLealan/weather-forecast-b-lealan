@@ -45,13 +45,13 @@ function generateCards(){
     for(var i = 0; i < 5; i++){
         var today = dayjs();
         var cardDate = today.add(i, 'day').format("DD/MM/YYYY");
-        var date = $(`<p class="date[i]">Date:${cardDate}</p>`);
+        var date = $(`<p class="date[i]">Date: ${cardDate}</p>`);
         var weatherCardEl = $("#weather-cards");
         var singleCardEl = $(`<div class="single-card[i] card-style"></div>`)
         var iconEl = $(`<img class="weather-icon" src="" alt="Weather Icon"/>`);
-        var temperature = $(`<p class="temperature[i]">Temperature:</p>`);
-        var windSpeed = $(`<p class="wind-speed[i]">Wind Speed:</p>`);
-        var humidity = $(`<p class="humidity[i]">Humidity:</p>`);
+        var temperature = $(`<p class="temperature"></p>`);
+        var windSpeed = $(`<p class="wind-speed"></p>`);
+        var humidity = $(`<p class="humidity"></p>`);
 
         weatherCardEl.append(singleCardEl);
         singleCardEl.append(date, iconEl, temperature, windSpeed, humidity);
@@ -77,13 +77,16 @@ searchButton.addEventListener("click", function(event){
     var weatherIcon = testResult.weather[0].icon;
     var iconEl = `http://openweathermap.org/img/w/${weatherIcon}.png`;
     $(".weather-icon").attr("src", iconEl);
-    var temperature = testResult.main.temp;
-    var windSpeed = testResult.wind.speed;
-    var humidity = testResult.main.humidity;
+    var temperatureResult = testResult.main.temp;
     //Default temp from API is in Kelvin so needs to be converted
-    temperature -= 273.15;
-    var roundedTemperature = Math.round(temperature *10)/10;
-    // console.log(weatherIcon, roundedTemperature, windSpeed, humidity);
+    temperatureResult -= 273.15;
+    var roundedTemperature = Math.round(temperatureResult *10)/10;
+    $(".temperature").text(`Temperature: ${roundedTemperature}°C`);
+    var windSpeedResult = testResult.wind.speed;
+    $(".wind-speed").text(`Wind Speed: ${windSpeedResult} m/s`);
+    var humidityResult = testResult.main.humidity;
+    $(".humidity").text(`Humidity: ${humidityResult}%`);
+  
 });
 
 // var saveButton = $(".saveBtn");
