@@ -16,7 +16,7 @@ However, I encountered a few issues that I was not able to solve before submitti
 
 Below is a link to the live site and screenshots of the page showing it deployed:
 
-- 
+- https://blealan.github.io/weather-forecast-b-lealan/
 
 <img src="./assets/images/Screenshot-1.png" alt="Screenshot 1 with blank input" width=60% height=60% />
 <img src="./assets/images/Screenshot-2.png" alt="Screenshot 2 with saved user input" width=60% height=60% />
