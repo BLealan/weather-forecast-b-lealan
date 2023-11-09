@@ -18,7 +18,7 @@ function getApi(latitude, longitude){
         var saveWeather = data;
         var savedCity = searchForCity.value;
         localStorage.setItem(savedCity,JSON.stringify(saveWeather));
-        // console.log(saveWeather);
+        console.log(saveWeather);
     })
 }
 
@@ -42,6 +42,13 @@ function cityToCoordinates(){
 
 //Function to generate weather cards
 function generateCards(){
+
+    var weatherCardEl = $("#weather-cards");
+    var savedCity = searchForCity.value;
+    var today = dayjs();
+    var cardTitle = $(`<h3 class="weather-title">The weather in ${savedCity} from ${today.format("DD/MM/YYYY")} to ${today.add(5, 'day').format("DD/MM/YYYY")}</p>`); 
+    weatherCardEl.append(cardTitle);
+
     for(var i = 0; i < 5; i++){
         var today = dayjs();
         var cardDate = today.add(i, 'day').format("DD/MM/YYYY");
@@ -56,6 +63,7 @@ function generateCards(){
         weatherCardEl.append(singleCardEl);
         singleCardEl.append(date, iconEl, temperature, windSpeed, humidity);
     }
+
 };
 
 //Click event to save value of search bar to local storage an create history button
@@ -86,7 +94,6 @@ searchButton.addEventListener("click", function(event){
     $(".wind-speed").text(`Wind Speed: ${windSpeedResult} m/s`);
     var humidityResult = testResult.main.humidity;
     $(".humidity").text(`Humidity: ${humidityResult}%`);
-  
 });
 
 // var saveButton = $(".saveBtn");
