@@ -9,7 +9,7 @@ var createWeatherCard = document.getElementById("weather-cards");
 
 function getApi(latitude, longitude){
     var APIKey = "5a2bf608390639e1f4cb6c9ed307b7e6";
-    var requestUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${APIKey}`;
+    var requestUrl = `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&appid=${APIKey}&cnt=5`;
 
     fetch(requestUrl)
     .then(function (response){
