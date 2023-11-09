@@ -1,10 +1,11 @@
 var searchForCity = document.querySelector("#city-search");
+var searchForCountry = document.querySelector("#country-search");
 var searchButton = document.querySelector("#searchBtn");
 var latitude = 0;
 var longitude = 0;
 var savedCity = searchForCity.value;
+var searchCountry = searchForCountry.value;
 var createWeatherCard = document.getElementById("weather-cards");
-
 
 function getApi(latitude, longitude){
     var APIKey = "5a2bf608390639e1f4cb6c9ed307b7e6";
@@ -25,10 +26,11 @@ function getApi(latitude, longitude){
 //Function to convert city in local storage to co-ordinates
 function cityToCoordinates(){
     var city = localStorage.getItem("city");
+    var country = searchCountry
 
     $.ajax({
         method: 'GET',
-        url: `https://api.api-ninjas.com/v1/geocoding?city=${city}`,
+        url: `https://api.api-ninjas.com/v1/geocoding?city=${city}&country=${country}`,
         headers: { 'X-Api-Key': 'SSqciNfqi1I7PloStRDhwA==FxTHxv4F9h2qlThu'},
         contentType: 'application/json',
         success: function(result) {
@@ -37,7 +39,6 @@ function cityToCoordinates(){
             console.error('Error: ', jqXHR.responseText);
         }
     })
-    
 };
 
 //Function to generate weather cards
@@ -59,11 +60,9 @@ function generateCards(){
         var temperature = $(`<p class="temperature"></p>`);
         var windSpeed = $(`<p class="wind-speed"></p>`);
         var humidity = $(`<p class="humidity"></p>`);
-
         weatherCardEl.append(singleCardEl);
         singleCardEl.append(date, iconEl, temperature, windSpeed, humidity);
     }
-
 };
 
 //Click event to save value of search bar to local storage an create history button
@@ -102,4 +101,3 @@ searchButton.addEventListener("click", function(event){
 //     var buttonText = $thisButton(".saveBtn").val();
 //     console.log(buttonText);
 // });
-
